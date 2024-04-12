@@ -32,3 +32,9 @@
 	width: 40em;
 	outline: none;
 }
+
+@media (max-width: 768px) {
+	.formInput {
+		width: 100%;
+	}
+}

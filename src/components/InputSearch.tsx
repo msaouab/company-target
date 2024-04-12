@@ -6,12 +6,10 @@ import FilterBar from './FilterBar'
 const InputSearch = () => {
 	const [searchValue, setSearchValue] = useRecoilState(SearchValueState)
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		console.log(e.target.value)
 		setSearchValue(e.target.value)
 	}
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		console.log('Form submitted')
 	}
 	return (
 		<header className="header debug">
