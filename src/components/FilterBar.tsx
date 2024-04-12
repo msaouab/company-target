@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router-dom'
 
 const FilterBar = () => {
 	const [filter, setFilter] = useRecoilState(FilterState)
-	const [searchParams, setSearchParams] = useSearchParams()
+	const [, setSearchParams] = useSearchParams()
 
 	useEffect(() => {
 		const savedFilter = localStorage.getItem('filter')
