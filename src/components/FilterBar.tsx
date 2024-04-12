@@ -15,16 +15,16 @@ const FilterBar = () => {
 		}
 	}, [setFilter])
 
-	const handleFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
-		const buttonValue = e.currentTarget.textContent?.toLowerCase() || 'all'
-		if (buttonValue === 'all') {
-			setFilter([buttonValue])
+	const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const checkboxValue = e.target.value
+		if (checkboxValue === 'all') {
+			setFilter([checkboxValue])
 		} else if (filter.includes('all')) {
-			setFilter([buttonValue])
-		} else if (filter.includes(buttonValue)) {
-			setFilter(filter.filter((btn) => btn !== buttonValue))
+			setFilter([checkboxValue])
+		} else if (filter.includes(checkboxValue)) {
+			setFilter(filter.filter((btn) => btn !== checkboxValue))
 		} else {
-			setFilter([...filter, buttonValue])
+			setFilter([...filter, checkboxValue])
 		}
 	}
 
@@ -37,31 +37,43 @@ const FilterBar = () => {
 	}, [filter])
 
 	return (
-		<div className="filter-bar">
-			<button
-				onClick={handleFilter}
-				className={`filter-btn ${filter.includes('all') ? 'active-btn' : ''}`}
-			>
+		<div className="filter-bar debug">
+			<label className='checkbox-label'>
+				<input
+					type="checkbox"
+					value="all"
+					checked={filter.includes('all')}
+					onChange={handleCheckboxChange}
+				/>
 				All
-			</button>
-			<button
-				onClick={handleFilter}
-				className={`filter-btn ${filter.includes('city') ? 'active-btn' : ''}`}
-			>
+			</label>
+			<label className='checkbox-label'>
+				<input
+					type="checkbox"
+					value="city"
+					checked={filter.includes('city')}
+					onChange={handleCheckboxChange}
+				/>
 				City
-			</button>
-			<button
-				onClick={handleFilter}
-				className={`filter-btn ${filter.includes('company') ? 'active-btn' : ''}`}
-			>
+			</label>
+			<label className='checkbox-label'>
+				<input
+					type="checkbox"
+					value="company"
+					checked={filter.includes('company')}
+					onChange={handleCheckboxChange}
+				/>
 				Company
-			</button>
-			<button
-				onClick={handleFilter}
-				className={`filter-btn ${filter.includes('activity') ? 'active-btn' : ''}`}
-			>
+			</label>
+			<label className='checkbox-label'>
+				<input
+					type="checkbox"
+					value="activity"
+					checked={filter.includes('activity')}
+					onChange={handleCheckboxChange}
+				/>
 				Activity
-			</button>
+			</label>
 		</div>
 	)
 }
