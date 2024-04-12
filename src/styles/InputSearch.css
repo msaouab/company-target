@@ -1,0 +1,34 @@
+.header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding-bottom: 5rem;
+	gap: 2rem;
+}
+
+.appTitle {
+	color: #fff;
+	border: 1px solid #fff;
+	padding: 1rem 1rem;
+	text-transform: uppercase;
+	margin-top: 2rem;
+	text-align: center;
+}
+
+.formInput {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.2rem;
+}
+
+.searchInput {
+	padding: 1rem;
+	font-size: 1rem;
+	border: 1px solid #fff;
+	background: rgba(217, 217, 217, 0);
+	color: #d0d6f9;
+	width: 40em;
+	outline: none;
+}
