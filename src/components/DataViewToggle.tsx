@@ -75,7 +75,6 @@ const DataViewToggle = () => {
 	}, [jsonPath, currentPage, itemsPerPage])
 
 	useEffect(() => {
-		localStorage.setItem('filter', JSON.stringify(filter))
 		setSearchParams({ filter: filter.join(','), query: searchValue })
 		if (filter.includes('all') || filter.length === 0) {
 			setSearchParams({ query: searchValue })
@@ -87,8 +86,6 @@ const DataViewToggle = () => {
 		(currentPage - 1) * itemsPerPage,
 		currentPage * itemsPerPage
 	)
-
-	console.log('itemsPerPage', itemsPerPage)
 
 	return (
 		<section className="grid-toggle">
