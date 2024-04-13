@@ -16,8 +16,7 @@ const DataViewToggle = () => {
 	const [itemsPerPage, setItemsPerPage] = useState(10)
 	const [, setSearchParams] = useSearchParams()
 
-	// const jsonPath = import.meta.env.VITE_API_URL
-	const jsonPath = 'src/data/companies.json'
+	const jsonPath = import.meta.env.VITE_API_URL
 
 	const filterData = (
 		data: TCompany[],
@@ -82,7 +81,8 @@ const DataViewToggle = () => {
 				const response = await axios.get(
 					`${jsonPath}?_page=${currentPage}&_limit=${itemsPerPage}`
 				)
-				setData(response.data)
+				if (response.status === 200)
+					setData(response.data)
 			} catch (error) {
 				console.error('Error getting data:', error)
 			}
