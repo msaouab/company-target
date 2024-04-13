@@ -37,8 +37,8 @@ const FilterBar = () => {
 	}, [filter])
 
 	return (
-		<div className="filter-bar debug">
-			<label className='checkbox-label'>
+		<div className="filter-bar">
+			<label className="checkbox-label">
 				<input
 					type="checkbox"
 					value="all"
@@ -47,7 +47,7 @@ const FilterBar = () => {
 				/>
 				All
 			</label>
-			<label className='checkbox-label'>
+			<label className="checkbox-label">
 				<input
 					type="checkbox"
 					value="city"
@@ -56,7 +56,7 @@ const FilterBar = () => {
 				/>
 				City
 			</label>
-			<label className='checkbox-label'>
+			<label className="checkbox-label">
 				<input
 					type="checkbox"
 					value="company"
@@ -65,7 +65,7 @@ const FilterBar = () => {
 				/>
 				Company
 			</label>
-			<label className='checkbox-label'>
+			<label className="checkbox-label">
 				<input
 					type="checkbox"
 					value="activity"

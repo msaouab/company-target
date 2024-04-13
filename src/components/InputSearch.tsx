@@ -11,8 +11,9 @@ const InputSearch = () => {
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 	}
+
 	return (
-		<header className="header debug">
+		<section className="header">
 			<h1 className="appTitle">Search For your Companies Target</h1>
 			<FilterBar />
 			<form onSubmit={handleSubmit} className="formInput">
@@ -27,7 +28,7 @@ const InputSearch = () => {
 					className="searchInput"
 				/>
 			</form>
-		</header>
+		</section>
 	)
 }
 
