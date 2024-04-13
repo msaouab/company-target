@@ -25,7 +25,7 @@ const DataViewToggle = () => {
 	): TCompany[] => {
 		let result:TCompany[] = []
 
-		if (filter.includes('all')) {
+		if (filter?.includes('all')) {
 			result = data.filter(
 				(company) =>
 					company.name
@@ -41,7 +41,7 @@ const DataViewToggle = () => {
 		} else {
 			const filterConditions: ((company: TCompany) => boolean)[] = []
 
-			if (filter.includes('city')) {
+			if (filter?.includes('city')) {
 				filterConditions.push((company: TCompany) =>
 					company.city
 						.toLowerCase()
@@ -49,7 +49,7 @@ const DataViewToggle = () => {
 				)
 			}
 
-			if (filter.includes('company')) {
+			if (filter?.includes('company')) {
 				filterConditions.push((company: TCompany) =>
 					company.name
 						.toLowerCase()
@@ -57,7 +57,7 @@ const DataViewToggle = () => {
 				)
 			}
 
-			if (filter.includes('activity')) {
+			if (filter?.includes('activity')) {
 				filterConditions.push((company: TCompany) =>
 					company.activity
 						.toLowerCase()
@@ -65,7 +65,7 @@ const DataViewToggle = () => {
 				)
 			}
 
-			if (filterConditions.length > 0) {
+			if (filterConditions?.length > 0) {
 				result = data.filter((company) =>
 					filterConditions.some((condition) => condition(company))
 				)
