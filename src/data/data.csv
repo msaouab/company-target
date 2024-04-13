@@ -1,4 +1,4 @@
-company_name,address,city,phone,fax,status,capital,latitude,longitude,activity
+name,address,city,phone,fax,status,capital,latitude,longitude,activity
 Negoce entreprise etude  (NEE),53 Rue Melouiya Appt N2 - Rabat,Rabat,,[],Société Anonyme,10 000  DHS,33.99756,-6.84783,negociant
 Sohagrima  (SOMAGRIMA),19 Oued Fes - Rabat,Rabat,,[],Société à Responsabilité Limitée,100 000  DHS,34.00244,-6.84881,marchand effectuant import-export
 Nador (ste immobiliere),Residence De Sar Le Prince Moulay Abdellah - Rabat,Rabat,,[],Société Anonyme,20 000  DHS,34.018841,-6.834015,effectuant speculations immobilieres
