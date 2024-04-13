@@ -17,12 +17,11 @@ const PaginationControls = ({
 	setItemsPerPage,
 }: TPaginationControls) => {
 	const totalPages = Math.ceil(totalItems / itemsPerPage)
-	const maxPagesToShow = 10 // Maximum number of page numbers to display
-	const [startPage, setStartPage] = useState(1) // Start page number
+	const maxPagesToShow = 10
+	const [startPage, setStartPage] = useState(1)
 
 	const handlePageChange = (pageNumber: number) => {
 		setCurrentPage(pageNumber)
-		// Update the start page if clicking near the end of the current range
 		if (pageNumber >= startPage + maxPagesToShow - 2) {
 			setStartPage(pageNumber - maxPagesToShow + 3)
 		} else if (pageNumber <= startPage + 1) {
@@ -34,10 +33,10 @@ const PaginationControls = ({
 		event: React.ChangeEvent<HTMLSelectElement>
 	) => {
 		setItemsPerPage(parseInt(event.target.value))
-		setStartPage(1) // Reset the start page when changing items per page
+		setStartPage(1)
 	}
 
-	const endPage = Math.min(startPage + maxPagesToShow - 1, totalPages) // Calculate the end page number
+	const endPage = Math.min(startPage + maxPagesToShow - 1, totalPages)
 
 	return (
 		<div className="pagination">

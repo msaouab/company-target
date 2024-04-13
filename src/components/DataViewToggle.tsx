@@ -23,37 +23,54 @@ const DataViewToggle = () => {
 		filter: string[],
 		searchValue: string
 	): TCompany[] => {
-		let result = filter.includes('all')
-			? data.filter(
-					(company) =>
-						company.name
-							.toLowerCase()
-							.includes(searchValue?.toLowerCase()) ||
-						company.city
-							.toLowerCase()
-							.includes(searchValue?.toLowerCase()) ||
-						company.activity
-							.toLowerCase()
-							.includes(searchValue?.toLowerCase())
-				)
-			: data
+		let result = data
 
-		if (filter.includes('city')) {
-			result = result.filter((company) =>
-				company.city.toLowerCase().includes(searchValue?.toLowerCase())
+		if (filter.includes('all')) {
+			result = data.filter(
+				(company) =>
+					company.name
+						.toLowerCase()
+						.includes(searchValue.toLowerCase()) ||
+					company.city
+						.toLowerCase()
+						.includes(searchValue.toLowerCase()) ||
+					company.activity
+						.toLowerCase()
+						.includes(searchValue.toLowerCase())
 			)
-		}
-		if (filter.includes('company')) {
-			result = result.filter((company) =>
-				company.name.toLowerCase().includes(searchValue?.toLowerCase())
-			)
-		}
-		if (filter.includes('activity')) {
-			result = result.filter((company) =>
-				company.activity
-					.toLowerCase()
-					.includes(searchValue?.toLowerCase())
-			)
+		} else {
+			const filterConditions: ((company: TCompany) => boolean)[] = []
+
+			if (filter.includes('city')) {
+				filterConditions.push((company: TCompany) =>
+					company.city
+						.toLowerCase()
+						.includes(searchValue.toLowerCase())
+				)
+			}
+
+			if (filter.includes('company')) {
+				filterConditions.push((company: TCompany) =>
+					company.name
+						.toLowerCase()
+						.includes(searchValue.toLowerCase())
+				)
+			}
+
+			if (filter.includes('activity')) {
+				filterConditions.push((company: TCompany) =>
+					company.activity
+						.toLowerCase()
+						.includes(searchValue.toLowerCase())
+				)
+			}
+
+			if (filterConditions.length > 0) {
+				result = data.filter((company) =>
+					filterConditions.some((condition) => condition(company))
+				)
+			}
+			console.log('filterConditions', filterConditions)
 		}
 
 		return result
