@@ -23,7 +23,7 @@ const DataViewToggle = () => {
 		filter: string[],
 		searchValue: string
 	): TCompany[] => {
-		let result = data
+		let result:TCompany[] = []
 
 		if (filter.includes('all')) {
 			result = data.filter(
@@ -70,7 +70,6 @@ const DataViewToggle = () => {
 					filterConditions.some((condition) => condition(company))
 				)
 			}
-			console.log('filterConditions', filterConditions)
 		}
 
 		return result
