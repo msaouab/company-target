@@ -82,32 +82,35 @@ const DataViewToggle = () => {
 		}
 	}, [filter, searchValue])
 
-	const filteredData = filterData(data, filter, searchValue);
+	const filteredData = filterData(data, filter, searchValue)
 	const paginatedData = filteredData.slice(
-	  (currentPage - 1) * itemsPerPage,
-	  currentPage * itemsPerPage
-	);
-	
+		(currentPage - 1) * itemsPerPage,
+		currentPage * itemsPerPage
+	)
+
+	console.log('itemsPerPage', itemsPerPage)
+
 	return (
-	  <section className="grid-toggle">
-		{filteredData.length > 0 ? (
-		  <h2>Companies: {filteredData.length}</h2>
-		) : (
-		  <h2>No companies found</h2>
-		)}
-		<article className="company-container">
-		  {paginatedData.map((company, index) => (
-			<CompanyCards key={index} company={company} />
-		  ))}
-		</article>
-		<PaginationControls
-		  totalItems={filteredData.length}
-		  itemsPerPage={itemsPerPage}
-		  currentPage={currentPage}
-		  setCurrentPage={setCurrentPage}
-		/>
-	  </section>
-	);
+		<section className="grid-toggle">
+			{filteredData.length > 0 ? (
+				<h2>Companies: {filteredData.length}</h2>
+			) : (
+				<h2>No companies found</h2>
+			)}
+			<article className="company-container">
+				{paginatedData.map((company, index) => (
+					<CompanyCards key={index} company={company} />
+				))}
+			</article>
+			<PaginationControls
+				totalItems={filteredData.length}
+				itemsPerPage={itemsPerPage}
+				currentPage={currentPage}
+				setCurrentPage={setCurrentPage}
+				setItemsPerPage={setItemsPerPage}
+			/>
+		</section>
+	)
 }
 
 export default DataViewToggle
