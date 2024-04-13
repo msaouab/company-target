@@ -16,7 +16,8 @@ const DataViewToggle = () => {
 	const [itemsPerPage, setItemsPerPage] = useState(10)
 	const [, setSearchParams] = useSearchParams()
 
-	const jsonPath = import.meta.env.VITE_API_URL
+	// const jsonPath = import.meta.env.VITE_API_URL
+	const jsonPath = 'src/data/companies.json'
 
 	const filterData = (
 		data: TCompany[],
