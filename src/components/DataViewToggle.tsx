@@ -5,8 +5,8 @@ import { FilterState, SearchValueState } from '../recoil/Atoms'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { TCompany } from '../_types/company'
-import PaginationControls from './PaginationControls'
 import { useSearchParams } from 'react-router-dom'
+import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator'
 
 const DataViewToggle = () => {
 	const searchValue = useRecoilValue(SearchValueState)
@@ -104,10 +104,20 @@ const DataViewToggle = () => {
 		currentPage * itemsPerPage
 	)
 
+	const [first, setFirst] = useState<number>(0)
+
+	const onPageChange = (event: PaginatorPageChangeEvent) => {
+		setCurrentPage(event.page + 1)
+		setFirst(event.first)
+		setItemsPerPage(event.rows)
+	}
+
 	return (
 		<section className="grid-toggle">
 			{filteredData.length > 0 ? (
-				<h2 className='company-length'>Companies: {filteredData.length}</h2>
+				<h2 className="company-length">
+					Companies: {filteredData.length}
+				</h2>
 			) : (
 				<h2>No companies found</h2>
 			)}
@@ -116,12 +126,12 @@ const DataViewToggle = () => {
 					<CompanyCards key={index} company={company} />
 				))}
 			</article>
-			<PaginationControls
-				totalItems={filteredData.length}
-				itemsPerPage={itemsPerPage}
-				currentPage={currentPage}
-				setCurrentPage={setCurrentPage}
-				setItemsPerPage={setItemsPerPage}
+			<Paginator
+				first={first}
+				rows={itemsPerPage}
+				totalRecords={filteredData.length}
+				rowsPerPageOptions={[10, 20, 30, 50]}
+				onPageChange={onPageChange}
 			/>
 		</section>
 	)
