@@ -94,8 +94,8 @@ const DataViewToggle = () => {
 
 	useEffect(() => {
 		setSearchParams({ filter: filter.join(','), query: searchValue })
-		if (filter.includes('all') || filter.length === 0) {
-			setSearchParams({ query: searchValue })
+		if (searchValue.length === 0) {
+			setSearchParams()
 		}
 	}, [filter, searchValue])
 
