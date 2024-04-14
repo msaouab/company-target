@@ -1,7 +1,25 @@
-.company-list {
+/* .company-list {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: 1rem;
 	width: 400px;
+} */
+
+.company-list {
+	background-color: #f9f9f9;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	padding: 20px;
+	margin-bottom: 20px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.company-list h2 {
+	font-size: 1.5rem;
+	margin-bottom: 10px;
+}
+
+.company-list p {
+	margin: 5px 0;
 }

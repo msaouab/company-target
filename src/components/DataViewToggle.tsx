@@ -24,7 +24,7 @@ const DataViewToggle = () => {
 		filter: string[],
 		searchValue: string
 	): TCompany[] => {
-		let result:TCompany[] = []
+		let result: TCompany[] = []
 
 		if (filter?.includes('all')) {
 			result = data.filter(
@@ -82,8 +82,7 @@ const DataViewToggle = () => {
 				const response = await axios.get(
 					`${jsonPath}?_page=${currentPage}&_limit=${itemsPerPage}`
 				)
-				if (response.status === 200)
-					setData(response.data)
+				if (response.status === 200) setData(response.data)
 			} catch (error) {
 				console.error('Error getting data:', error)
 			}
@@ -108,7 +107,7 @@ const DataViewToggle = () => {
 	return (
 		<section className="grid-toggle">
 			{filteredData.length > 0 ? (
-				<h2>Companies: {filteredData.length}</h2>
+				<h2 className='company-length'>Companies: {filteredData.length}</h2>
 			) : (
 				<h2>No companies found</h2>
 			)}
