@@ -18,3 +18,21 @@
 	margin-bottom: 10px;
 	color: aliceblue;
 }
+
+
+.p-paginator {
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+	color: aliceblue;
+}
+
+.p-paginator-element {
+	color: aliceblue;
+}
+
+.p-paginator-pages {
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+}
