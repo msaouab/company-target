@@ -17,7 +17,7 @@ const DataViewToggle = () => {
 	const [, setSearchParams] = useSearchParams()
 
 	// const jsonPath = import.meta.env.VITE_API_URL
-	const jsonPath = 'src/data/companies.json'
+	const jsonPath = '/companies.json'
 
 	const filterData = (
 		data: TCompany[],
