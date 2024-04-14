@@ -12,3 +12,9 @@
 	justify-content: center;
 	gap: 1rem;
 }
+
+.company-length {
+	font-size: 1.5rem;
+	margin-bottom: 10px;
+	color: aliceblue;
+}
