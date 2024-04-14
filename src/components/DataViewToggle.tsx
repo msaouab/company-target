@@ -5,7 +5,6 @@ import { FilterState, SearchValueState } from '../recoil/Atoms'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { TCompany } from '../_types/company'
-import PaginationControls from './PaginationControls'
 import { useSearchParams } from 'react-router-dom'
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator'
 
@@ -106,11 +105,11 @@ const DataViewToggle = () => {
 	)
 
 	const [first, setFirst] = useState<number>(0)
-	const [rows, setRows] = useState<number>(10)
 
 	const onPageChange = (event: PaginatorPageChangeEvent) => {
+		setCurrentPage(event.page + 1)
 		setFirst(event.first)
-		setRows(event.rows)
+		setItemsPerPage(event.rows)
 	}
 
 	return (
@@ -129,7 +128,7 @@ const DataViewToggle = () => {
 			</article>
 			<Paginator
 				first={first}
-				rows={rows}
+				rows={itemsPerPage}
 				totalRecords={filteredData.length}
 				rowsPerPageOptions={[10, 20, 30, 50]}
 				onPageChange={onPageChange}

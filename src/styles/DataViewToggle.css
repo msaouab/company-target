@@ -19,7 +19,6 @@
 	color: aliceblue;
 }
 
-
 .p-paginator {
 	display: flex;
 	justify-content: center;
@@ -36,3 +35,56 @@
 	justify-content: center;
 	gap: 1rem;
 }
+
+.p-dropdown {
+	border: 1px solid #495057;
+	width: 50px;
+	height: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 5px;
+}
+
+.p-dropdown-panel {
+	background-color: #2d3748;
+	color: aliceblue;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.p-dropdown-items-wrapper {
+	display: flex;
+	justify-content: center;
+	gap: 5px;
+	width: 100%;
+}
+
+.p-dropdown-items {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	width: 100%;
+}
+
+.p-paginator-element {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+}
+
+.p-paginator-element:hover {
+	background-color: #495057;
+	color: aliceblue;
+}
+
+.p-focus {
+	background-color: #495057;
+}
+
+.p-highlight {
+	background-color: aliceblue;
+	color: #495057;
+}
+
