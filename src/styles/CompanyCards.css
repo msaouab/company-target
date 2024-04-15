@@ -26,3 +26,21 @@
 .company-list p {
 	margin: 5px 0;
 }
+
+.address {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+.copy-btn {
+	background: none;
+	border: none;
+	cursor: pointer;
+	color: #bbb;
+}
+
+.copy-text {
+	color: green;
+	font-size: 0.8rem;
+}

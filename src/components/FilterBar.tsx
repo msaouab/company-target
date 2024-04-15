@@ -10,6 +10,7 @@ const FilterBar = () => {
 
 	const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const checkboxValue = e.target.value
+
 		if (checkboxValue === 'all') {
 			setFilter([checkboxValue])
 		} else if (filter.includes('all')) {
@@ -28,10 +29,10 @@ const FilterBar = () => {
 	}, [searchParams])
 
 	useEffect(() => {
-		if (filter.includes('all')) {
-			setSearchParams('')
+		if (filter.includes('all') || filter.length === 0) {
+			setSearchParams({ ...searchParams, filter: [] })
 		} else {
-			setSearchParams('filter=' + filter.join(','))
+			setSearchParams({ ...searchParams, filter: filter.join(',') })
 		}
 	}, [filter])
 

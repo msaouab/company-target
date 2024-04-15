@@ -5,7 +5,6 @@ import { FilterState, SearchValueState } from '../recoil/Atoms'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { TCompany } from '../_types/company'
-// import { useSearchParams } from 'react-router-dom'
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator'
 
 const DataViewToggle = () => {
@@ -14,9 +13,6 @@ const DataViewToggle = () => {
 	const [data, setData] = useState<TCompany[]>([])
 	const [currentPage, setCurrentPage] = useState(1)
 	const [itemsPerPage, setItemsPerPage] = useState(10)
-	// const [, setSearchParams] = useSearchParams()
-
-	// const jsonPath = import.meta.env.VITE_API_URL
 	const jsonPath = '/companies.json'
 
 	const filterData = (
@@ -26,7 +22,7 @@ const DataViewToggle = () => {
 	): TCompany[] => {
 		let result: TCompany[] = []
 
-		if (filter?.includes('all')) {
+		if (filter?.includes('all') || filter.length === 0) {
 			result = data.filter(
 				(company) =>
 					company.name
@@ -90,13 +86,6 @@ const DataViewToggle = () => {
 
 		fetchData()
 	}, [jsonPath, currentPage, itemsPerPage])
-
-	// useEffect(() => {
-	// 	setSearchParams({ filter: filter.join(','), query: searchValue })
-	// 	if (searchValue.length === 0) {
-	// 		setSearchParams()
-	// 	}
-	// }, [filter, searchValue])
 
 	const filteredData = filterData(data, filter, searchValue)
 	const paginatedData = filteredData.slice(
