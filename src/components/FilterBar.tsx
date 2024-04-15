@@ -31,9 +31,11 @@ const FilterBar = () => {
 	useEffect(() => {
 		localStorage.setItem('filter', JSON.stringify(filter))
 		setSearchParams({ filter: filter.join(',') })
-		if (filter.includes('all') || filter.length === 0) {
-			setSearchParams({})
+		if (filter.length === 0) {
+			setFilter(['all'])
 		}
+		if (filter.includes('all'))
+			setSearchParams({ filter: '' })
 	}, [filter])
 
 	return (
