@@ -83,8 +83,11 @@
 	background-color: #495057;
 }
 
+.p-disabled {
+	opacity: 0.5;
+}
+
 .p-highlight {
 	background-color: aliceblue;
 	color: #495057;
 }
-

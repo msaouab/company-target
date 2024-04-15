@@ -6,14 +6,7 @@ import { useSearchParams } from 'react-router-dom'
 
 const FilterBar = () => {
 	const [filter, setFilter] = useRecoilState(FilterState)
-	const [, setSearchParams] = useSearchParams()
-
-	useEffect(() => {
-		const savedFilter = localStorage.getItem('filter')
-		if (savedFilter) {
-			setFilter(JSON.parse(savedFilter))
-		}
-	}, [setFilter])
+	const [searchParams, setSearchParams] = useSearchParams()
 
 	const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const checkboxValue = e.target.value
@@ -29,10 +22,16 @@ const FilterBar = () => {
 	}
 
 	useEffect(() => {
-		localStorage.setItem('filter', JSON.stringify(filter))
-		setSearchParams({ filter: filter.join(',') })
-		if (filter.includes('all') || filter.length === 0) {
-			setSearchParams({})
+		if (searchParams.has('filter')) {
+			setFilter((searchParams?.get('filter') || '').split(','))
+		}
+	}, [searchParams])
+
+	useEffect(() => {
+		if (filter.includes('all')) {
+			setSearchParams('')
+		} else {
+			setSearchParams('filter=' + filter.join(','))
 		}
 	}, [filter])
 

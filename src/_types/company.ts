@@ -6,7 +6,7 @@ export type TCompany = {
 	fax: []
 	status: string
 	capital: string
-	latitude: string
-	longitude: string
+	latitude: number | string
+	longitude: number | string
 	activity: string
 }
