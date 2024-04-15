@@ -16,13 +16,10 @@ const FilterBar = () => {
 			setFilter([checkboxValue])
 		} else if (filter.includes(checkboxValue)) {
 			setFilter(filter.filter((btn) => btn !== checkboxValue))
-			console.log("checkboxValue: ", checkboxValue)
 		} else {
 			setFilter([...filter, checkboxValue])
 		}
 	}
-
-	console.log("filter: ", filter)
 
 	useEffect(() => {
 		if (searchParams.has('filter')) {
