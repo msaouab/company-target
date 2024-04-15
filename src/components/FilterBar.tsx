@@ -6,14 +6,7 @@ import { useSearchParams } from 'react-router-dom'
 
 const FilterBar = () => {
 	const [filter, setFilter] = useRecoilState(FilterState)
-	const [, setSearchParams] = useSearchParams()
-
-	useEffect(() => {
-		const savedFilter = localStorage.getItem('filter')
-		if (savedFilter) {
-			setFilter(JSON.parse(savedFilter))
-		}
-	}, [setFilter])
+	const [searchParams, setSearchParams] = useSearchParams()
 
 	const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const checkboxValue = e.target.value
@@ -23,19 +16,26 @@ const FilterBar = () => {
 			setFilter([checkboxValue])
 		} else if (filter.includes(checkboxValue)) {
 			setFilter(filter.filter((btn) => btn !== checkboxValue))
+			console.log("checkboxValue: ", checkboxValue)
 		} else {
 			setFilter([...filter, checkboxValue])
 		}
 	}
 
+	console.log("filter: ", filter)
+
 	useEffect(() => {
-		localStorage.setItem('filter', JSON.stringify(filter))
-		setSearchParams({ filter: filter.join(',') })
-		if (filter.length === 0) {
-			setFilter(['all'])
+		if (searchParams.has('filter')) {
+			setFilter((searchParams?.get('filter') || '').split(','))
 		}
-		if (filter.includes('all'))
-			setSearchParams({ filter: '' })
+	}, [searchParams])
+
+	useEffect(() => {
+		if (filter.includes('all')) {
+			setSearchParams('')
+		} else {
+			setSearchParams('filter=' + filter.join(','))
+		}
 	}, [filter])
 
 	return (

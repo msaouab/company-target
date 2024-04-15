@@ -7,17 +7,23 @@ type TCompanyCards = {
 }
 
 const CompanyCards = ({ company }: TCompanyCards) => {
-
 	const openGoogleMaps = (lat: number | string, lng: number | string) => {
-		window.open(`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`)
+		window.open(
+			`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`
+		)
 	}
 
 	return (
 		<div className="company-list">
 			<h2>{company.name}</h2>
 			<p>
-				<a href="#" onClick={() => openGoogleMaps(company.latitude, company.longitude)}>
-				<strong>Address:</strong> {company.address}
+				<a
+					href="#"
+					onClick={() =>
+						openGoogleMaps(company.latitude, company.longitude)
+					}
+				>
+					<strong>Address:</strong> {company.address}
 				</a>
 			</p>
 			<p>
