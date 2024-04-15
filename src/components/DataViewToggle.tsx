@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { TCompany } from '../_types/company'
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator'
+import { Skeleton } from 'primereact/skeleton'
 
 const DataViewToggle = () => {
 	const searchValue = useRecoilValue(SearchValueState)
@@ -13,6 +14,8 @@ const DataViewToggle = () => {
 	const [data, setData] = useState<TCompany[]>([])
 	const [currentPage, setCurrentPage] = useState(1)
 	const [itemsPerPage, setItemsPerPage] = useState(10)
+	const [first, setFirst] = useState<number>(0)
+	const [isLoading, setIsLoading] = useState(true)
 	const jsonPath = '/companies.json'
 
 	const filterData = (
@@ -78,7 +81,10 @@ const DataViewToggle = () => {
 				const response = await axios.get(
 					`${jsonPath}?_page=${currentPage}&_limit=${itemsPerPage}`
 				)
-				if (response.status === 200) setData(response.data)
+				if (response.status === 200) {
+					setData(response.data)
+					setIsLoading(false)
+				}
 			} catch (error) {
 				console.error('Error getting data:', error)
 			}
@@ -92,8 +98,6 @@ const DataViewToggle = () => {
 		(currentPage - 1) * itemsPerPage,
 		currentPage * itemsPerPage
 	)
-
-	const [first, setFirst] = useState<number>(0)
 
 	const onPageChange = (event: PaginatorPageChangeEvent) => {
 		setCurrentPage(event.page + 1)
@@ -110,10 +114,32 @@ const DataViewToggle = () => {
 			) : (
 				<h2>No companies found</h2>
 			)}
-			<article className="company-container">
-				{paginatedData.map((company, index) => (
-					<CompanyCards key={index} company={company} />
-				))}
+			<article
+				className={`company-container ${isLoading ? 'loader' : ''}`}
+			>
+				{isLoading ? (
+					<>
+						<Skeleton
+							height="10rem"
+							className="mb-2"
+							animation="wave"
+						></Skeleton>
+						<Skeleton
+							height="10rem"
+							className="mb-2"
+							animation="wave"
+						></Skeleton>
+						<Skeleton
+							height="10rem"
+							className="mb-2"
+							animation="wave"
+						></Skeleton>
+					</>
+				) : (
+					paginatedData.map((company, index) => (
+						<CompanyCards key={index} company={company} />
+					))
+				)}
 			</article>
 			<Paginator
 				first={first}

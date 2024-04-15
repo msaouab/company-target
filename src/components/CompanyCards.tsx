@@ -43,7 +43,7 @@ const CompanyCards = ({ company }: TCompanyCards) => {
 				>
 					<FaCopy />
 				</button>
-				{isCopied && <span className='copy-text'>Copied!</span>}
+				{isCopied && <span className="copy-text">Copied!</span>}
 			</p>
 			<p>
 				<strong>City:</strong> {company.city ? company.city : 'N/A'}
