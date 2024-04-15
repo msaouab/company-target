@@ -6,6 +6,12 @@
 	width: auto;
 }
 
+.loader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .company-container {
 	display: flex;
 	flex-wrap: wrap;
@@ -90,4 +96,19 @@
 .p-highlight {
 	background-color: aliceblue;
 	color: #495057;
+}
+
+.p-skeleton {
+	background-color: #2d3748;
+	border-radius: 5px;
+}
+
+.p-skeleton:after {
+	background: linear-gradient(
+		90deg,
+		rgba(156, 156, 156, 0),
+		rgba(111, 111, 111, 0.4),
+		rgba(105, 105, 105, 0)
+	);
+	content: '';
 }
