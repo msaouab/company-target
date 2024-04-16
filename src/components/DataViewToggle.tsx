@@ -7,15 +7,17 @@ import axios from 'axios'
 import { TCompany } from '../_types/company'
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator'
 import { Skeleton } from 'primereact/skeleton'
+import { useSearchParams } from 'react-router-dom'
 
 const DataViewToggle = () => {
 	const searchValue = useRecoilValue(SearchValueState)
 	const filter = useRecoilValue(FilterState)
 	const [data, setData] = useState<TCompany[]>([])
-	const [currentPage, setCurrentPage] = useState(1)
-	const [itemsPerPage, setItemsPerPage] = useState(10)
+	const [currentPage, setCurrentPage] = useState<number>(1)
+	const [itemsPerPage, setItemsPerPage] = useState<number>(10)
 	const [first, setFirst] = useState<number>(0)
-	const [isLoading, setIsLoading] = useState(true)
+	const [isLoading, setIsLoading] = useState<boolean>(true)
+	const [searchParams, setSearchParams] = useSearchParams()
 	const jsonPath = '/companies.json'
 
 	const filterData = (
@@ -75,6 +77,25 @@ const DataViewToggle = () => {
 		return result
 	}
 
+	const handleQueryParamChange = () => {
+		const pageFromQueryParam = searchParams.get('page')
+		if (pageFromQueryParam) {
+			setCurrentPage(parseInt(pageFromQueryParam))
+		} else {
+			setCurrentPage(1)
+		}
+	}
+
+	useEffect(() => {
+		handleQueryParamChange()
+		const itemPerPageFromQueryParam = searchParams.get('ItemPerPage')
+		if (itemPerPageFromQueryParam) {
+			setItemsPerPage(parseInt(itemPerPageFromQueryParam))
+		} else {
+			setItemsPerPage(10)
+		}
+	}, [searchParams, itemsPerPage])
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -100,9 +121,14 @@ const DataViewToggle = () => {
 	)
 
 	const onPageChange = (event: PaginatorPageChangeEvent) => {
-		setCurrentPage(event.page + 1)
 		setFirst(event.first)
 		setItemsPerPage(event.rows)
+		setCurrentPage(event.page + 1)
+
+		searchParams.set('page', (event.page + 1).toString())
+		setSearchParams(searchParams)
+		searchParams.set('ItemPerPage', event.rows.toString())
+		setSearchParams(searchParams)
 	}
 
 	return (
