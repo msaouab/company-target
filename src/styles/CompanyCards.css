@@ -25,6 +25,12 @@
 	align-items: center;
 	gap: 1rem;
 }
+
+.address .address-link {
+	color: #007bff;
+	text-decoration: none;
+}
+
 .copy-btn {
 	background: none;
 	border: none;
@@ -32,7 +38,19 @@
 	color: #bbb;
 }
 
+.address-link svg {
+	font-size: 0.8rem;
+}
+
 .copy-text {
 	color: green;
 	font-size: 0.8rem;
+}
+
+strong {
+	color: #000;
+}
+
+.rating {
+	color: #f8d053;
 }

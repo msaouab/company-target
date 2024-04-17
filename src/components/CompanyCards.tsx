@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { TCompany } from '../_types/company'
 import '../styles/CompanyCards.css'
-import { FaCopy } from 'react-icons/fa'
+import { FaCopy, FaExternalLinkAlt } from 'react-icons/fa'
 
 type TCompanyCards = {
 	company: TCompany
@@ -27,15 +27,28 @@ const CompanyCards = ({ company }: TCompanyCards) => {
 	return (
 		<div className="company-list">
 			<h2>{company.name}</h2>
+			{company.rating && (
+				<>
+					<strong>Rating:</strong>
+					<p className="rating"> {company.rating}</p>
+				</>
+			)}
 			<p className="address ">
 				<a
 					href="#"
 					onClick={() =>
 						openGoogleMaps(company.latitude, company.longitude)
 					}
+					className="address-link"
 				>
 					<strong>Address:</strong>{' '}
-					{company.address ? company.address : 'N/A'}
+					{company.address ? (
+						<>
+							{company.address} <FaExternalLinkAlt />
+						</>
+					) : (
+						'N/A'
+					)}
 				</a>
 				<button
 					className="copy-btn"
@@ -63,12 +76,6 @@ const CompanyCards = ({ company }: TCompanyCards) => {
 				<strong>Capital:</strong>{' '}
 				{company.capital ? company.capital : 'N/A'}
 			</p>
-			{/* <p>
-				<strong>Latitude:</strong> {company.latitude}
-			</p>
-			<p>
-				<strong>Longitude:</strong> {company.longitude}
-			</p> */}
 			<p>
 				<strong>Activity:</strong>{' '}
 				{company.activity ? company.activity : 'N/A'}

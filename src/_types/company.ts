@@ -1,5 +1,6 @@
 export type TCompany = {
 	name: string
+	rating: string
 	address: string
 	city: string
 	phone: string
