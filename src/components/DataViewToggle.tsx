@@ -8,6 +8,7 @@ import { TCompany } from '../_types/company'
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator'
 import { Skeleton } from 'primereact/skeleton'
 import { useSearchParams } from 'react-router-dom'
+import noData from '../assets/no-data-Photoroom.png-Photoroom.png'
 
 const DataViewToggle = () => {
 	const searchValue = useRecoilValue(SearchValueState)
@@ -23,47 +24,50 @@ const DataViewToggle = () => {
 	const filterData = (
 		data: TCompany[],
 		filter: string[],
-		searchValue: string
+		searchValue: string[]
 	): TCompany[] => {
 		let result: TCompany[] = []
 
 		if (filter?.includes('all') || filter.length === 0) {
-			result = data.filter(
-				(company) =>
-					company.name
-						.toLowerCase()
-						.includes(searchValue.toLowerCase()) ||
-					company.city
-						.toLowerCase()
-						.includes(searchValue.toLowerCase()) ||
-					company.activity
-						.toLowerCase()
-						.includes(searchValue.toLowerCase())
-			)
+			result = data.filter((company) => {
+				const companyValues = Object.values(company)
+				const companyValuesString = companyValues
+					.map((value) => value.toString().toLowerCase())
+					.join(' ')
+				return searchValue.every((value) =>
+					companyValuesString.includes(value.toLowerCase())
+				)
+			})
 		} else {
 			const filterConditions: ((company: TCompany) => boolean)[] = []
 
 			if (filter?.includes('city')) {
 				filterConditions.push((company: TCompany) =>
-					company.city
-						.toLowerCase()
-						.includes(searchValue.toLowerCase())
+					searchValue.some((city) =>
+						company.city.toLowerCase().includes(city.toLowerCase())
+					)
 				)
 			}
 
 			if (filter?.includes('company')) {
-				filterConditions.push((company: TCompany) =>
-					company.name
-						.toLowerCase()
-						.includes(searchValue.toLowerCase())
+				filterConditions.push(
+					(company: TCompany) =>
+						searchValue.some((name) =>
+							company.name
+								.toLowerCase()
+								.includes(name.toLowerCase())
+						)
 				)
 			}
 
 			if (filter?.includes('activity')) {
-				filterConditions.push((company: TCompany) =>
-					company.activity
-						.toLowerCase()
-						.includes(searchValue.toLowerCase())
+				filterConditions.push(
+					(company: TCompany) =>
+						searchValue.some((activity) =>
+							company.activity
+								.toLowerCase()
+								.includes(activity.toLowerCase())
+						)
 				)
 			}
 
@@ -114,7 +118,7 @@ const DataViewToggle = () => {
 		fetchData()
 	}, [jsonPath, currentPage, itemsPerPage])
 
-	const filteredData = filterData(data, filter, searchValue)
+	const filteredData = filterData(data, filter || [], searchValue || [])
 	const paginatedData = filteredData.slice(
 		(currentPage - 1) * itemsPerPage,
 		currentPage * itemsPerPage
@@ -133,13 +137,21 @@ const DataViewToggle = () => {
 
 	return (
 		<section className="grid-toggle">
-			{filteredData.length > 0 ? (
-				<h2 className="company-length">
-					Companies: {filteredData.length}
-				</h2>
-			) : (
-				<h2>No companies found</h2>
-			)}
+			<h2 className="company-length">
+				{filteredData.length > 0 ? (
+					`Companies: ${filteredData.length}`
+				) : (
+					<>
+						No companies found
+						<img
+							src={noData}
+							alt="no data"
+							className="no-data-img"
+						/>
+					</>
+				)}
+			</h2>
+
 			<article
 				className={`company-container ${isLoading ? 'loader' : ''}`}
 			>

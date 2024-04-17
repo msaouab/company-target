@@ -6,6 +6,11 @@
 	width: auto;
 }
 
+.no-data-img {
+	width: 400px;
+	/* height: 400px; */
+}
+
 .loader {
 	display: flex;
 	justify-content: space-between;
@@ -23,6 +28,11 @@
 	font-size: 1.5rem;
 	margin-bottom: 10px;
 	color: aliceblue;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 2rem;
 }
 
 .p-paginator {
