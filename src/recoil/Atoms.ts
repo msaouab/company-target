@@ -1,11 +1,13 @@
-import { atom } from 'recoil'
+import { RecoilState, atom } from 'recoil'
 
-export const SearchValueState = atom({
-	key: 'inputSearchState',
-	default: '',
+export const SearchValueState: RecoilState<string[] | null> = atom<
+	string[] | null
+>({
+	key: 'searchState',
+	default: [],
 })
 
-export const FilterState = atom({
+export const FilterState: RecoilState<string[] | null> = atom<string[] | null>({
 	key: 'filterState',
-	default: ['all'],
+	default: [],
 })

@@ -1,55 +1,48 @@
 import { useRecoilState } from 'recoil'
 import '../styles/InputSearch.css'
-import { FilterState, SearchValueState } from '../recoil/Atoms'
+import { SearchValueState } from '../recoil/Atoms'
 import FilterBar from './FilterBar'
 import { useSearchParams } from 'react-router-dom'
 import { useEffect } from 'react'
+import { Chips, ChipsChangeEvent } from 'primereact/chips'
 
 const InputSearch = () => {
 	const [searchValue, setSearchValue] = useRecoilState(SearchValueState)
-	const [filter] = useRecoilState(FilterState)
 	const [searchParams, setSearchParams] = useSearchParams()
 
 	useEffect(() => {
 		if (searchParams.has('search')) {
-			setSearchValue(searchParams.get('search') || '')
+			setSearchValue((searchParams?.get('search') || '').split(','))
 		}
 	}, [searchParams])
 
 	useEffect(() => {
-		if (searchValue.length === 0) searchParams.delete('search')
-		else searchParams.set('search', searchValue)
-		if (filter.length > 0) {
-			searchParams.set('filter', filter.join(','))
+		if (searchValue?.length === 0) {
+			searchParams.delete('search')
 		} else {
-			searchParams.delete('filter')
+			searchParams.set('search', searchValue?.join(',') || '')
 		}
 		setSearchParams(searchParams)
-	}, [searchValue, filter])
+	}, [searchValue, searchParams])
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setSearchValue(e.target.value)
-	}
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
+	const handleChange = (e: ChipsChangeEvent) => {
+		setSearchValue(e.value as string[])
 	}
 
 	return (
 		<section className="header">
 			<h1 className="appTitle">Search For your Companies Target</h1>
 			<FilterBar />
-			<form onSubmit={handleSubmit} className="formInput">
-				<input
-					type="search"
-					name="search"
-					value={searchValue}
-					id="search"
+			<div className="p-fluid chips-container">
+				<label htmlFor="company" className="placeholder-chips">
+					Find your Companies Target
+				</label>
+				<Chips
+					id="company"
+					value={searchValue || []}
 					onChange={handleChange}
-					placeholder="Find your Compnaies Target"
-					autoComplete="off"
-					className="searchInput"
 				/>
-			</form>
+			</div>
 		</section>
 	)
 }

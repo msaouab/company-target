@@ -8,20 +8,6 @@ const FilterBar = () => {
 	const [filter, setFilter] = useRecoilState(FilterState)
 	const [searchParams, setSearchParams] = useSearchParams()
 
-	const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const checkboxValue = e.target.value
-
-		if (checkboxValue === 'all') {
-			setFilter([checkboxValue])
-		} else if (filter.includes('all')) {
-			setFilter([checkboxValue])
-		} else if (filter.includes(checkboxValue)) {
-			setFilter(filter.filter((btn) => btn !== checkboxValue))
-		} else {
-			setFilter([...filter, checkboxValue])
-		}
-	}
-
 	useEffect(() => {
 		if (searchParams.has('filter')) {
 			setFilter((searchParams?.get('filter') || '').split(','))
@@ -29,12 +15,27 @@ const FilterBar = () => {
 	}, [searchParams])
 
 	useEffect(() => {
-		if (filter.includes('all') || filter.length === 0) {
-			setSearchParams({ ...searchParams, filter: [] })
+		if (filter?.length === 0) {
+			searchParams.delete('filter')
 		} else {
-			setSearchParams({ ...searchParams, filter: filter.join(',') })
+			searchParams.set('filter', filter?.join(',') || '')
 		}
-	}, [filter])
+		setSearchParams(searchParams)
+	}, [filter, searchParams])
+
+	const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const checkboxValue = e.target.value
+
+		if (checkboxValue === 'all') {
+			setFilter([checkboxValue])
+		} else if (filter?.includes('all')) {
+			setFilter([checkboxValue])
+		} else if (filter?.includes(checkboxValue)) {
+			setFilter(filter.filter((btn) => btn !== checkboxValue))
+		} else {
+			setFilter([...(filter || []), checkboxValue])
+		}
+	}
 
 	return (
 		<div className="filter-bar">
@@ -42,7 +43,7 @@ const FilterBar = () => {
 				<input
 					type="checkbox"
 					value="all"
-					checked={filter.includes('all')}
+					checked={filter?.includes('all')}
 					onChange={handleCheckboxChange}
 				/>
 				All
@@ -51,7 +52,7 @@ const FilterBar = () => {
 				<input
 					type="checkbox"
 					value="city"
-					checked={filter.includes('city')}
+					checked={filter?.includes('city')}
 					onChange={handleCheckboxChange}
 				/>
 				City
@@ -60,7 +61,7 @@ const FilterBar = () => {
 				<input
 					type="checkbox"
 					value="company"
-					checked={filter.includes('company')}
+					checked={filter?.includes('company')}
 					onChange={handleCheckboxChange}
 				/>
 				Company
@@ -69,7 +70,7 @@ const FilterBar = () => {
 				<input
 					type="checkbox"
 					value="activity"
-					checked={filter.includes('activity')}
+					checked={filter?.includes('activity')}
 					onChange={handleCheckboxChange}
 				/>
 				Activity
