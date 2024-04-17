@@ -25,6 +25,12 @@
 	align-items: center;
 	gap: 1rem;
 }
+
+.address a {
+	color: #007bff;
+	text-decoration: none;
+}
+
 .copy-btn {
 	background: none;
 	border: none;
