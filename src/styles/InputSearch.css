@@ -31,8 +31,9 @@
 	background: rgba(217, 217, 217, 0);
 	width: 40em;
 	outline: none;
-	border-radius: 60px;
-	padding: 0.5rem;
+	height: 50px;
+    border-radius: 6px;
+    padding: 0.3rem;
 }
 
 .p-inputtext {
@@ -41,25 +42,30 @@
 	align-items: center;
 	justify-content: center;
 	gap: 0.2rem;
+	outline: none;
 }
 
 .p-chips-token {
 	border: 1px solid #fff;
 	background-color: #e5e7eb;
-	padding: 0.4rem;
-	border-radius: 60px;
+	padding: 0.3rem 0.6rem;
+    border-radius: 30px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	color: black;
 }
 
-.p-chips-input-token input {
+.p-chips-input-token {
 	color: #d0d6f9;
 }
 
+.p-chips-token-label {
+	margin-bottom: 3px;
+}
+
 .p-chips-token-icon {
-	margin-top: 2px;
+	margin-bottom: 1px;
 }
 
 .placeholder-chips {

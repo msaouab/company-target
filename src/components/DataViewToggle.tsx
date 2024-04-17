@@ -31,7 +31,7 @@ const DataViewToggle = () => {
 				str.toLowerCase().includes(value.toLowerCase())
 			)
 
-			const filterConditions: ((company: TCompany) => boolean)[] = []
+		const filterConditions: ((company: TCompany) => boolean)[] = []
 
 		if (filter.includes('city')) {
 			filterConditions.push((company) =>
