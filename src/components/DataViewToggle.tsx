@@ -26,59 +26,45 @@ const DataViewToggle = () => {
 		filter: string[],
 		searchValue: string[]
 	): TCompany[] => {
-		let result: TCompany[] = []
+		const includesSearchValue = (str: string) =>
+			searchValue.some((value) =>
+				str.toLowerCase().includes(value.toLowerCase())
+			)
 
-		if (filter?.includes('all') || filter.length === 0) {
-			result = data.filter((company) => {
-				const companyValues = Object.values(company)
-				const companyValuesString = companyValues
-					.map((value) => value.toString().toLowerCase())
-					.join(' ')
-				return searchValue.every((value) =>
-					companyValuesString.includes(value.toLowerCase())
-				)
-			})
-		} else {
-			const filterConditions: ((company: TCompany) => boolean)[] = []
+		const filterConditions: ((company: TCompany) => boolean)[] = []
 
-			if (filter?.includes('city')) {
-				filterConditions.push((company: TCompany) =>
-					searchValue.some((city) =>
-						company.city.toLowerCase().includes(city.toLowerCase())
-					)
-				)
-			}
-
-			if (filter?.includes('company')) {
-				filterConditions.push(
-					(company: TCompany) =>
-						searchValue.some((name) =>
-							company.name
-								.toLowerCase()
-								.includes(name.toLowerCase())
-						)
-				)
-			}
-
-			if (filter?.includes('activity')) {
-				filterConditions.push(
-					(company: TCompany) =>
-						searchValue.some((activity) =>
-							company.activity
-								.toLowerCase()
-								.includes(activity.toLowerCase())
-						)
-				)
-			}
-
-			if (filterConditions?.length > 0) {
-				result = data.filter((company) =>
-					filterConditions.some((condition) => condition(company))
-				)
-			}
+		if (filter.includes('city')) {
+			filterConditions.push((company) =>
+				includesSearchValue(company.city)
+			)
 		}
 
-		return result
+		if (filter.includes('company')) {
+			filterConditions.push((company) =>
+				includesSearchValue(company.name)
+			)
+		}
+
+		if (filter.includes('activity')) {
+			filterConditions.push((company) =>
+				includesSearchValue(company.activity)
+			)
+		}
+
+		if (filterConditions.length === 0) {
+			filterConditions.push(
+				(company) =>
+					includesSearchValue(company.name) ||
+					includesSearchValue(company.city) ||
+					includesSearchValue(company.activity)
+			)
+		}
+
+		return data.filter(
+			(company) =>
+				searchValue.length === 0 ||
+				filterConditions.some((condition) => condition(company))
+		)
 	}
 
 	const handleQueryParamChange = () => {
